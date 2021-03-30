@@ -1,0 +1,123 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body { 
+    height: 100%; 
+}
+
+/*CSS ACCOUNT LOGIN/REGISTER*/
+.auth-container {
+    background-color: #52435f;
+}
+
+.form-container {
+    background-color: #f3f3f3;        
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+    padding: 30px;
+    max-width: 650px;
+    width: 100%;        
+    border-radius: 2px;
+}
+
+.form-links {
+    padding-bottom: 20px;
+}
+
+.form-links a {
+    width: 100%;
+    text-decoration: none;
+    color: #3f3f3f;
+}    
+
+.form-box {
+    max-width: 350px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.auth-form button {
+    margin-top: 20px;    
+}
+
+.google-auth-btn {
+    background-color: #dd4b39;
+    color: #f3f3f3;
+    margin-top: 10px;
+}
+/*CSS ACCOUNT LOGIN/REGISTER END*/
+
+/*CSS SIDEBAR*/
+.full-width-link {
+    width: 100%;
+    text-decoration: none;
+}
+
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+  background-color: #f3f3f3;
+}
+
+.mat-drawer {
+  width: 300px;
+}
+
+.toggle-sidenav-btn {
+    top: 50%;
+    right: 0%;
+}
+/*CSS SIDEBAR END*/
+
+/*CSS SNACKBAR*/
+::ng-deep .snack-ok {
+    background-color: #28a745;
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-ok .mat-button-wrapper {
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-error {
+    background-color: #dc3545;
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-error .mat-button-wrapper {
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-warn {
+    background-color: #ffc107;
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-warn .mat-button-wrapper {
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-info {
+    background-color: #17a2b8;
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-info .mat-button-wrapper {
+    color: rgb(255, 255, 255);
+}
+/*CSS SNACKBAR END*/

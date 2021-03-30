@@ -1,0 +1,35 @@
+<form novalidate (ngSubmit)="register()" [formGroup]="registerForm" fxLayout="column" class="auth-form">
+    <mat-form-field>
+        <input matInput formControlName="firstName" placeholder="Nome">
+        <mat-error *ngIf="hasError('firstName', 'required')">Informe o Nome</mat-error>
+        <mat-error *ngIf="hasError('firstName', 'minlength')">Mínimo de 2 caracteres</mat-error>
+        <mat-error *ngIf="hasError('firstName', 'maxlength')">Máximo de 255 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="lastName" placeholder="Sobrenome">
+        <mat-error *ngIf="hasError('lastName', 'required')">Informe o Sobrenome</mat-error>
+        <mat-error *ngIf="hasError('lastName', 'minlength')">Mínimo de 2 caracteres</mat-error>
+        <mat-error *ngIf="hasError('lastName', 'maxlength')">Máximo de 255 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="email" placeholder="Email">
+        <mat-error *ngIf="hasError('email', 'required')">Informe o Email</mat-error>
+        <mat-error *ngIf="hasError('email', 'pattern')">Informe um endereço de email com formato válido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="password" placeholder="Senha" type="password">
+        <mat-error *ngIf="hasError('password', 'required')">Informe a senha</mat-error>
+        <mat-error *ngIf="hasError('password', 'minlength')">A senha deve ter no minimo 8 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="passwordConfirmation" placeholder="Confirme a Senha" type="password">
+        <mat-error *ngIf="hasError('passwordConfirmation', 'required')">Informe a confirmação da senha</mat-error>
+        <mat-error *ngIf="hasError('passwordConfirmation', 'mustMatch')">As senhas não conferem</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button [disabled]="!registerForm.valid" type="submit">Registrar</button>
+</form>  

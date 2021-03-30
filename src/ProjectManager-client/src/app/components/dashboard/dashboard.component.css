@@ -1,0 +1,56 @@
+@import '../../styles/material-snackbar-styles.css';
+
+.full-width-link {
+    width: 100%;
+    text-decoration: none;
+}
+
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+  background-color: #f3f3f3;
+}
+
+.mat-drawer {
+  width: 330px;
+}
+
+.toggle-sidenav-btn {
+    top: 50%;
+    right: 0%;
+}
+
+.full-width-dialog .mat-dialog-container {
+  max-width: 100vw !important;
+}
+
+::ng-deep .user-photo :hover {
+  cursor: pointer;
+}
+
+.custom-toolbar {
+  background-color: #52435f;
+}
+
+.custom-toolbar mat-icon {
+  color: #d6d6d6;
+}
+
+.new-project-btn {
+  background-color: #449b58;
+  color: #f3f3f3;        
+}

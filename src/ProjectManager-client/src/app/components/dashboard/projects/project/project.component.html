@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Projetos</h1>
+        </div>
+    </div>
+    <app-project-header (projectIdEvt)="getProjectDataById($event)"></app-project-header>    
+    <div class="row bg-white" *ngIf="project">
+        <div class="col-sm">
+            <h2 class="m-0">{{project.title}}</h2>
+            <p>Participantes: <strong>{{project.personInProject.length}}</strong></p>            
+        </div>
+        <div class="col-sm">
+            <p class="m-0">Inicio do projeto <strong>{{project.startDate | momentPipe: 'DD/MM'}}</strong></p>
+            <p>Previsão de conclusão do projeto <strong>{{project.conclusionDate | momentPipe: 'DD/MM'}}</strong></p>
+        </div>       
+        <div class="col mr-3">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="pull-right"><mat-icon>more_horiz</mat-icon></button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openProjectDetails()"><fa-icon [icon]="['fas', 'external-link-alt']"></fa-icon> Detalhes do Projeto</button>
+                <button mat-menu-item (click)="addNewTask()"><fa-icon [icon]="['fas', 'plus']"></fa-icon> Incluir Tarefa</button>
+                <button mat-menu-item (click)="exportProject()"><fa-icon [icon]="['fas', 'file-download']"></fa-icon> Exportar</button>
+            </mat-menu>
+        </div>        
+    </div>
+    <div class="row bg-white">        
+        <div class="col">
+            <mat-tab-group #tabGroup selectedIndex="0" mat-align-tabs="center" dynamicHeight [color]="'primary'" [backgroundColor]="'primary'">  
+                <mat-tab label="Board" [disabled]="!project">                      
+                    <app-board></app-board>                  
+                </mat-tab>
+                <mat-tab label="Time" [disabled]="!project">
+                    <app-attendants (attendantRemovedEvt)="attendantRemoved($event)" (attendantsIncludedEvt)="attendantIncluded($event)" *matTabContent [projectId]="this.projectId" [attendants]="attendants"></app-attendants>
+                </mat-tab>
+                <mat-tab label="Estatísticas" [disabled]="!project">
+                    <app-statistics *matTabContent [projectId]="projectId" [isProjectDashboard]="true"></app-statistics>
+                </mat-tab>
+            </mat-tab-group>
+        </div>        
+    </div>
+</div>

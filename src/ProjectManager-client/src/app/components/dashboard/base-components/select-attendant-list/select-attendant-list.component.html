@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Selecione o Responsável</h2>
+<mat-dialog-content>
+    <div class="d-flex justify-content-center" *ngIf="loading">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    <div class="mb-3" *ngIf="!loading">
+        <mat-form-field style="width: 100%;">
+            <mat-label>Filtro</mat-label>
+            <input matInput [formControl]="filter">
+        </mat-form-field>
+        <mat-selection-list class="border rounded-sm" #attendants [multiple]="false" [compareWith]="compareFn" [(ngModel)]="selectedAttendant">
+            <mat-list-option *ngFor="let attendant of $filter| async | sort:'personCode'" role="listitem" [value]="attendant">
+                {{attendant.personCode}} - {{attendant.fullName}}
+            </mat-list-option>        
+        </mat-selection-list>        
+    </div>    
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-flat-button color="warn" class="float-left" (click)="close()">Fechar</button>
+    <button mat-flat-button color="primary" class="float-right" (click)="saveSelected()">Ok</button>
+</mat-dialog-actions>

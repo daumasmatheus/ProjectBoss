@@ -1,0 +1,35 @@
+::ng-deep .snack-ok {
+    background-color: #28a745;
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-ok .mat-button-wrapper {
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-error {
+    background-color: #dc3545;
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-error .mat-button-wrapper {
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-warn {
+    background-color: #ffc107;
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-warn .mat-button-wrapper {
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-info {
+    background-color: #17a2b8;
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .snack-info .mat-button-wrapper {
+    color: rgb(255, 255, 255);
+}

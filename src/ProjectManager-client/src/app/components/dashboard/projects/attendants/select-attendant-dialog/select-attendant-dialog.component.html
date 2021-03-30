@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Novo participante</h2>
+<mat-dialog-content>
+    <app-table-component *ngIf="newAttendants.length > 0" [data]="newAttendants" [columnNames]="displayedColumnNames" [columns]="displayedColumns" [isSelectable]="true" #attendantsTable></app-table-component>
+    <p *ngIf="newAttendants.length == 0">Nenhum usuário disponível/encontrado</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-flat-button color="warn" (click)="closeDialog()">Cancelar</button>
+    <button mat-flat-button color="primary" class="float-right" (click)="selectAttendants()" [disabled]="!attendantsTable?.selection || attendantsTable?.selection?.selected?.length == 0">Salvar</button>
+</mat-dialog-actions>

@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center" *ngIf="loadingData">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div class="justify-content-center mt-4 mb-4 row" *ngIf="!loadingData">
+    <ng-container *ngIf="isProjectDashboard">
+        <div class="col" align="center">
+            <p class="h6">Tarefas Abertas e Concluídas por participante</p>
+            <ngx-charts-bar-vertical-2d [view]="view" 
+            [results]="getOpenAndOnGoingTasksByPersonInProjectData"
+            [xAxis]="true"
+            [yAxis]="true"
+            [showGridLines]="true"
+            [legend]="true"
+            [legendTitle]="'Legenda'"
+            [legendPosition]="'bottom'"
+            ></ngx-charts-bar-vertical-2d>
+        </div>
+        <div class="col mt-2" align="center">
+            <p class="h6">Tarefas por Status</p>
+            <ngx-charts-pie-chart
+                [results]="getTasksStatusByProjectData"
+                [labels]="true"
+                [legend]="true"
+                [legendTitle]="'Legenda'"
+                [legendPosition]="'bottom'"
+                ></ngx-charts-pie-chart>
+        </div>
+        <div class="col mt-2" align="center">
+            <p class="h6">Novas tarefas e tarefas concluídas por data</p>
+            <ngx-charts-line-chart
+                [results]="getNewAndClosedTasksByDateByProjectData"
+                [labels]="true"
+                [legend]="true"
+                [xAxis]="true"
+                [yAxis]="true"
+                [showGridLines]="true"
+                [legendTitle]="'Legenda'"
+                [legendPosition]="'bottom'"
+                ></ngx-charts-line-chart>
+        </div>
+    </ng-container>    
+
+    <ng-container *ngIf="!isProjectDashboard && !noChartData">
+        <div class="col col-md-6">
+            <h3 class="text-center">Novos Usuários por Data</h3>
+            <canvas baseChart [datasets]="createdUsers" [labels]="createdUsersLabels" [legend]="true" [chartType]="'bar'" [colors]="userBarColor"></canvas>
+        </div>
+        
+        <ng-container *ngIf="!noChartData">
+            <div class="row mt-5 justify-content-center">
+                <div class="col col-md-4">
+                    <h3 class="text-center">Total de Tarefas (Criadas/Concluídas)</h3>
+                    <canvas baseChart [data]="totalTasks" [labels]="totalTasksLabels" [legend]="true" [chartType]="'pie'" [colors]="pieColors"></canvas>
+                </div>
+                <div class="col col-md-4">
+                    <h3 class="text-center">Tarefas Criadas por Data</h3>
+                    <canvas baseChart [datasets]="createdTasks" [labels]="createdTasksLabels" [legend]="true" [chartType]="'bar'" [colors]="tasksBarColors"></canvas>
+                </div>
+                <div class="col col-md-4">
+                    <h3 class="text-center">Tarefas Concluídas por Data</h3>
+                    <canvas baseChart [datasets]="concludedTasks" [labels]="concludedTasksLabels" [legend]="true" [chartType]="'bar'" [colors]="tasksBarColors"></canvas>
+                </div>
+            </div>
+            <div class="row mt-5 justify-content-center">
+                <div class="col col-md-4">
+                    <h3 class="text-center">Total de Projetos (Criados/Concluídos)</h3>
+                    <canvas baseChart [data]="totalProjects" [labels]="totalProjectsLabels" [legend]="true" [chartType]="'pie'" [colors]="pieColors"></canvas>
+                </div>
+                <div class="col col-md-4">
+                    <h3 class="text-center">Projetos Criados por Data</h3>
+                    <canvas baseChart [datasets]="createdProjects" [labels]="createdProjectsLabels" [legend]="true" [chartType]="'bar'" [colors]="projectBarColors"></canvas>
+                </div>
+                <div class="col col-md-4">
+                    <h3 class="text-center">Projetos Concluídos por Data</h3>
+                    <canvas baseChart [datasets]="concludedProjects" [labels]="concludedProjectsLabels" [legend]="true" [chartType]="'bar'" [colors]="projectBarColors"></canvas>
+                </div>
+            </div>
+        </ng-container>        
+    </ng-container>
+    <ng-container *ngIf="!isProjectDashboard && noChartData">
+        <p class="text-center">Não existem dados para serem exibidos no momento</p>
+    </ng-container>
+</div>

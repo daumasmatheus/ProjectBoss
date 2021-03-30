@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Novo projeto</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <mat-horizontal-stepper [linear]="true" #stepper labelPosition="bottom" class="shadow-sm" [ngClass]="{'disable-navigation': disablePrevSteps}">
+                <mat-step label="Dados do projeto" [completed]="isStepComplete(1)">
+                    <form [formGroup]="projectDataForm" novalidate class="mb-3">
+                        <div class="row">
+                            <div class="col-sm">
+                                <mat-form-field style="width: 100%;"> 
+                                    <mat-label>Título do projeto</mat-label>
+                                    <input matInput formControlName="title" placeholder="Título">
+                                    <mat-error *ngIf="hasError('title', 'required')">Informe o título do projeto</mat-error>
+                                    <mat-error *ngIf="hasError('title', 'maxLength')">Máximo de 255 caracteres</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-auto">
+                                <mat-form-field>
+                                    <mat-label>Data de Ínicio</mat-label>
+                                    <input matInput formControlName="startDate" [matDatepicker]="InitialDatepicker" readonly (click)="InitialDatepicker.open()">
+                                    <mat-error *ngIf="hasError('startDate', 'required')">Informe a data de inicio do projeto</mat-error>
+                                    <mat-error *ngIf="hasError('startDate', 'invalidDate')">A data não pode ser anterior a data presente</mat-error>
+                                    <mat-datepicker-toggle matSuffix [for]="InitialDatepicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #InitialDatepicker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-auto">
+                                <mat-form-field>
+                                    <mat-label>Data de Conclusão do Projeto</mat-label>
+                                    <input matInput formControlName="conclusionDate" [matDatepicker]="EndDatepicker" (click)="EndDatepicker.open()" readonly>
+                                    <mat-error *ngIf="hasError('conclusionDate', 'invalidDate')">A data não pode ser anterior a data presente</mat-error>
+                                    <mat-error *ngIf="hasError('conclusionDate', 'required')">Informe a data de término do projeto</mat-error>
+                                    <mat-datepicker-toggle matSuffix [for]="EndDatepicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #EndDatepicker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field style="width: 100%;">
+                                    <mat-label>Descrição do projeto</mat-label>
+                                    <textarea matInput formControlName="description"></textarea>
+                                    <mat-error *ngIf="hasError('description', 'required')">Informe a descrição do projeto</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                    <button mat-flat-button color="primary" matStepperNext (click)="saveProjectData()" [disabled]="!projectDataForm.valid">Avançar</button>
+                </mat-step>
+
+                <mat-step label="Participantes" [completed]="isStepComplete(2)">
+                    <p class="text-muted">Ao menos um participante deve ser selecionado</p>
+                    <app-table-component [data]="people" [columnNames]="displayedColumnNames" [columns]="displayedColumns" [isSelectable]="true" #attendantsTable></app-table-component>
+                    <button mat-stroked-button matStepperPrevious class="mr-2">Voltar</button>
+                    <button mat-flat-button color="primary" (click)="getAttendants()" [disabled]="attendantsTable.selection.selected.length == 0">Avançar</button>
+                </mat-step>
+    
+                <mat-step label="Tarefas" [completed]="isStepComplete(3)">                    
+                    <div class="row mb-2 mt-2">
+                        <div class="col">
+                            <button mat-flat-button (click)="openNewTaskDialog()" color="primary">Nova Tarefa</button>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="projectTasks != null && projectTasks.length > 0">
+                        <div class="row mt-2 mb-2 p-1 align-items-center border rounded-sm shadow-sm" *ngFor="let task of projectTasks">
+                            <div class="align-self-center">
+                                <ngx-avatar class="float-left mr-1" [size]="35" [name]="task.attendant.fullName"></ngx-avatar>
+                            </div>
+                            <div class="col">
+                                {{task.attendant.fullName}}
+                            </div>
+                            <div class="col text-truncate">
+                                {{task.title}}
+                            </div>
+                            <div class="text-truncate">
+                                Concl.: {{task.conclusionDate | momentPipe: 'DD/MM'}}
+                            </div>
+                            <div class="mr-3 ml-3" align="center">
+                                <span class="badge badge-pill" [ngClass]="{'badge-success': task.priorityId == 1, 'badge-primary' : task.priorityId == 2, 'badge-danger' : task.priorityId == 3}">
+                                    {{getPriorityStr(+task.priorityId)}}
+                                </span>
+                            </div>
+                            <div align="center">
+                                <button mat-button (click)="editTask(task)"><mat-icon color="primary">edit</mat-icon></button>
+                                <button mat-button (click)="removeTask(task)"><mat-icon color="warn">delete_outline</mat-icon></button>
+                            </div>
+                        </div>
+                    </ng-container>                    
+
+                    <button mat-stroked-button matStepperPrevious class="mr-2">Voltar</button>
+                    <button mat-flat-button color="primary" [disabled]="projectTasks.length == 0" (click)="createProject()">Concluir</button>
+                </mat-step>
+    
+                <mat-step label="Conclusão"> 
+                    <div class="d-flex flex-column mt-5 mb-5" *ngIf="projectData != null">
+                        <div>
+                            <h1 class="text-center">Projeto {{projectData.title}} criado com sucesso</h1>
+                        </div>
+                        <!-- <div align="center">
+                            <button mat-flat-button color="primary">Ir para o projeto</button>
+                        </div> -->
+                    </div>                                        
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="row border-bottom">
+        <div class="col">
+            <h1>Tarefas</h1>
+        </div>
+        <div>
+            <button mat-flat-button color="primary" class="pull-right mr-1" (click)="openNewTaskDialog()">Nova tarefa</button>            
+        </div>
+        <div>
+          <button mat-raised-button (click)="importTasks()" class="pull-right">
+            <fa-icon [icon]="['fas', 'file-download']"></fa-icon> Exportar
+          </button> 
+        </div>
+    </div>    
+    <div class="row mb-3">
+      <div class="col">
+        <mat-form-field>
+          <mat-label>Filtrar</mat-label>
+          <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+        
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="status">
+              <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header > Status </mat-header-cell>
+              <mat-cell mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="title">
+              <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Titulo </mat-header-cell>
+              <mat-cell mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="conclusionDate">
+              <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Data de Conclusão </mat-header-cell>
+              <mat-cell mat-cell *matCellDef="let row"> {{row.conclusionDate | momentPipe: 'DD/MM/YYYY'}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="priority">
+              <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Prioridade </mat-header-cell>
+              <mat-cell mat-cell *matCellDef="let row"> {{row.priority}} </mat-cell>
+            </ng-container>
+            
+            <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row mat-row matRipple *matRowDef="let row; columns: displayedColumns;" (click)="selectTask(row)"></mat-row>
+        
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">Nenhum registro foi encontrado</td>
+            </tr>
+          </table>          
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+
+      </div>        
+    </div>
+</div>
+<style>
+  .task-concluded {
+      color: green;
+  }
+  .task-unconcluded {
+      color: black;
+  }
+
+  table {
+      width: 100%;
+  }
+
+  .mat-form-field {
+      font-size: 14px;
+      width: 100%;
+  }
+
+  td, th {
+      width: 25%;
+  }
+
+  .mat-row:hover {
+    background: rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+  }  
+
+  .ripple {
+    background-position: center;
+    transition: background 0.8s;
+  }
+  .ripple:hover {
+    background: white radial-gradient(circle, transparent 1%, white 1%) center/15000%;
+  }
+  .ripple:active {
+    background-color: #ccc;
+    background-size: 100%;
+    transition: background 0s;
+  }  
+</style>

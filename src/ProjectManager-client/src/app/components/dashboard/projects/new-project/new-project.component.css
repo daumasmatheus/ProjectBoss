@@ -1,0 +1,39 @@
+.full-width-form {
+    width: 70%;
+}
+
+.project-info-container {
+    width: 60%;
+}
+
+.task-card {
+    width: 300px;
+    min-height: 160px;
+    max-height: 210px;
+    cursor: pointer;
+}
+
+.task-card-content {
+    max-height: 50px;
+    overflow: hidden;
+    word-break: break-all;
+    display: -webkit-box;
+    margin-right: 14px;
+    margin-left: 14px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.tasks-card-container {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.task-card-actions {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+::ng-deep .disable-navigation .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}

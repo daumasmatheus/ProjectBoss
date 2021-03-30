@@ -1,0 +1,12 @@
+.full-width-dialog .mat-dialog-container {
+  max-width: 100vw !important;
+}
+
+.full-width-form {
+  width: 100%;
+}
+
+mat-selection-list {
+  height: 150px;
+  overflow: auto;
+}

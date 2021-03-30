@@ -1,0 +1,11 @@
+<div class="row p-3 bg-white">    
+    <div class="col">      
+        <select #projectSelect class="custom-select" (change)="sendProjectId(projectSelect.value)">
+            <option [value]="0" selected>Selecione a tarefa</option>
+            <option *ngFor="let project of projects" [value]="project.projectId">{{project.projectName}}</option>            
+        </select>
+    </div>
+    <div class="col" align="right">
+        <a *ngIf="!isCommonUser" class="new-project-btn" mat-button routerLinkActive="mat-raised-button" routerLink="../new-project"><fa-icon [icon]="['fas', 'plus']"></fa-icon> Novo Projeto</a>
+    </div>
+</div>

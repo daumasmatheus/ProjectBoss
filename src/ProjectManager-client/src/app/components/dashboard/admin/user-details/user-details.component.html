@@ -1,0 +1,94 @@
+<h2 mat-dialog-title>Detalhes do Usuário {{selectedUser.userName}}</h2>
+
+<mat-dialog-content>
+    <h3 class="m-0">Dados de Usuário</h3>
+    <div class="border rounded p-2 mb-2">
+        <form novalidate [formGroup]="userDataForm">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-label>Criado em</mat-label>
+                        <input matInput formControlName="createdDate" [matDatepicker]="userCreatedDate" readonly>  
+                        <mat-datepicker #userCreatedDate></mat-datepicker>                   
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-label>Usuário</mat-label>
+                        <input matInput formControlName="userName">                        
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email">                        
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-label>Provider</mat-label>
+                        <input matInput readonly formControlName="provider">                        
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <mat-label>Tipo de Permissionamento</mat-label>
+                        <mat-select formControlName="role" [compareWith]="compareSelected">
+                          <mat-option *ngFor="let role of userRoles" value="{{role.id}}" selected>{{role.name}}</mat-option>                      
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+        <button mat-raised-button color="primary" (click)="resetUserPassword()" [disabled]="proccessPwdReset">Resetar Senha</button>
+    </div>
+
+    <h3 class="m-0">Dados Pessoais</h3>
+    <div class="border rounded p-2 mb-2">
+        <form novalidate [formGroup]="personDataForm">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-label>Codigo</mat-label>
+                        <input matInput formControlName="personCode" readonly>                        
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-label>Nome</mat-label>
+                        <input matInput formControlName="firstName">                        
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-label>Sobrenome</mat-label>
+                        <input matInput formControlName="lastName">                        
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-label>País</mat-label>
+                        <input matInput formControlName="country">                        
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-label>Empresa</mat-label>
+                        <input matInput formControlName="company">                        
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field> 
+                        <mat-label>Cargo</mat-label>
+                        <input matInput formControlName="role">                        
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>    
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-flat-button color="warn" (click)="closeDialog()">Fechar</button>
+    <button mat-flat-button color="primary" class="float-right" (click)="saveChanges()">Salvar</button>    
+</mat-dialog-actions>

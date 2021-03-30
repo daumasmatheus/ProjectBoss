@@ -1,0 +1,176 @@
+<div class="row">
+    <div class="col">
+        <h2 mat-dialog-title *ngIf="!editingTask">Nova Tarefa</h2>
+        <h2 mat-dialog-title *ngIf="editingTask">Tarefa {{editTask.title}} 
+            <span *ngIf="editTask.project" matTooltip="projeto" class="badge badge-secondary"># {{editTask.project?.title}}</span>
+        </h2>
+    </div>
+    <ng-container *ngIf="editingTask">
+        <div>
+            <button mat-icon-button (click)="toggleTaskStatus(2)" 
+                                    [disabled]="editTask.statusId == 4"
+                                    [ngClass]="{'task-status-active': editTask.statusId == 2}">
+                <fa-icon [icon]="['fas', 'play']"></fa-icon>
+            </button>
+        </div>
+        <div>
+            <button mat-icon-button (click)="toggleTaskStatus(3)" 
+                                    [disabled]="editTask.statusId == 4 ||  editTask.statusId == 1"
+                                    [ngClass]="{'task-status-active': editTask.statusId == 3}">
+                <fa-icon [icon]="['fas', 'pause']"></fa-icon>
+            </button>
+        </div>        
+        <div>
+            <button mat-icon-button (click)="concludeTask()" [ngClass]="{'task-complete': editTask.statusId == 4}">
+                <fa-icon [icon]="['fas', 'check']"></fa-icon>
+            </button>
+        </div>
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="removeTask()" *ngIf="isMyTask() || isProjectManagerOrAdmin">
+                    <fa-icon [icon]="['fas', 'trash']"></fa-icon> Remover
+                </button>
+                <button mat-menu-item *ngIf="isProjectManagerOrAdmin">
+                    <fa-icon [icon]="['far', 'clone']"></fa-icon> Adicionar a um projeto
+                </button>                
+            </mat-menu>
+        </div>
+    </ng-container>
+</div>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="newTaskForm" novalidate>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width-form"> 
+                    <mat-label>Título</mat-label>
+                    <input matInput formControlName="title" placeholder="Título">
+                    <mat-error *ngIf="hasError('title', 'required')">Informe o título da tarefa</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row" align="center">             
+            <div class="col">
+                <mat-form-field>
+                    <mat-label>Prioridade</mat-label>
+                    <mat-select formControlName="priorityId" [compareWith]="compareSelected">
+                      <mat-option value="1" selected>Baixa</mat-option>
+                      <mat-option value="2">Normal</mat-option>
+                      <mat-option value="3">Alta</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('priorityId', 'required')">Informe a prioridade da tarefa</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field>
+                    <mat-label>Data de conclusão</mat-label>
+                    <input matInput formControlName="conclusionDate" [matDatepicker]="TaskConclusionDatePicker" readonly (click)="TaskConclusionDatePicker.open()">
+                    <mat-error *ngIf="hasError('conclusionDate', 'required')">Informe a data de conclusão da tarefa</mat-error>
+                    <mat-error *ngIf="hasError('conclusionDate', 'invalidDate')">A data não pode ser anterior a data presente</mat-error>
+                    <mat-error *ngIf="hasError('conclusionDate', 'invalidTaskConclusionDate')">A data não pode ser maior que a data de conclusão do projeto</mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="TaskConclusionDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #TaskConclusionDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width-form">
+                    <mat-label>Descrição</mat-label>
+                    <textarea matInput formControlName="description" style="resize: none; height: 125px;"></textarea>
+                    <mat-error *ngIf="hasError('description', 'required')">Informe a descrição da tarefa</mat-error>
+                </mat-form-field>
+            </div>
+        </div>        
+        <div class="row mb-2" *ngIf="isProjectManagerOrAdmin">
+            <div class="col">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Responsavel</mat-label>
+                    <input matInput placeholder="Placeholder" readonly formControlName="attendant">          
+                    <mat-error *ngIf="hasError('title', 'required')">Selecione o responsável pela tarefa</mat-error>          
+                </mat-form-field>
+            </div>
+            <div class="mt-2 mr-3">
+                <button mat-mini-fab color="primary" (click)="openAttendantSelectDialog()">
+                    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                </button>
+            </div>
+        </div>        
+    </form>
+
+    <div *ngIf="editTask">
+        <ng-container *ngIf="loadingComments">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </ng-container>
+        
+        <ng-container *ngIf="!loadingComments && comments.length > 0">
+            <p>Comentários</p>
+            <ng-container>
+                <div class="row ml-1 comments-container" *ngFor="let comment of comments" >
+                    <div class="justify-content-start align-self-center">
+                        <ngx-avatar name="{{comment.person.fullName}}" size="25"></ngx-avatar>
+                    </div>
+                    <div class="align-self-center ml-1">
+                        <p class="m-0">{{comment.person.fullName}}</p>
+                        <small>Postado em {{comment.createdDate | momentPipe: 'D/M/YYYY H:mm'}}</small>
+                    </div>                  
+                    <div class="w-100"></div>
+                    <div class="col comment-content">
+                        <p>{{comment.content}}</p>
+                    </div>        
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>    
+    
+    <form [formGroup]="commentForm" novalidate *ngIf="editTask">
+        <div class="row border-top pt-2">            
+            <div class="col mw-80">
+                <mat-form-field class="ml-1 mw-100" style="width: 100%;">                    
+                    <input placeholder="Comentar" matInput formControlName="content" [(ngModel)]="commentStr">
+                </mat-form-field>
+            </div>
+            <div class="mt-1">                
+                <button mat-icon-button color="primary" (click)="submitComment()" [disabled]="!commentStr && !isSubmiting" class="ml-2">
+                    <ng-container *ngIf="!isSubmiting"> 
+                        <fa-icon [icon]="['far', 'comment']"></fa-icon>
+                    </ng-container>
+                    <ng-container *ngIf="isSubmiting">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </ng-container>
+                </button>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-flat-button color="warn" (click)="closeDialog()">Cancelar</button>
+    <button mat-flat-button color="primary" class="float-right" (click)="save()" [disabled]="!newTaskForm.valid || (editTask != null && editTask.statusId == 4)">Salvar</button>
+</mat-dialog-actions>
+<style>
+.full-width-dialog .mat-dialog-container {
+    max-width: 100vw !important;
+}
+
+.full-width-form {
+    width: 100%;
+}
+
+mat-selection-list {
+    height: 150px;
+    overflow: auto;
+}
+
+.task-status-active {
+    color: #17a2b8;
+}
+
+.task-complete {
+    color: #28a745
+}
+</style>

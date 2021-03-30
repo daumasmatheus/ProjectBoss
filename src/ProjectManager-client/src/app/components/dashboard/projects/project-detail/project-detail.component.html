@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col">
+        <h2 mat-dialog-title>{{project.title}}</h2>
+        <p>Criado por {{project.author.fullName}}</p>
+    </div>
+    <div align="right">
+        <button mat-icon-button (click)="enableEdit()" [disabled]="editing"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>        
+    </div>
+</div>
+<mat-dialog-content>
+    <form [formGroup]="projectForm" novalidate class="mb-3">
+        <div class="row">
+            <div class="col-sm">
+                <mat-form-field style="width: 100%;"> 
+                    <mat-label>Título do projeto</mat-label>
+                    <input matInput formControlName="title" placeholder="Título">
+                    <mat-error *ngIf="hasError('title', 'required')">Informe o título do projeto</mat-error>
+                    <mat-error *ngIf="hasError('title', 'maxLength')">Máximo de 255 caracteres</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-auto">
+                <mat-form-field>
+                    <mat-label>Data de Ínicio</mat-label>
+                    <input matInput disabled formControlName="startDate" [matDatepicker]="InitialDatepicker" readonly (click)="InitialDatepicker.open()">
+                    <mat-error *ngIf="hasError('startDate', 'required')">Informe a data de inicio do projeto</mat-error>
+                    <mat-error *ngIf="hasError('startDate', 'invalidDate')">A data não pode ser anterior a data presente</mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="InitialDatepicker" disabled></mat-datepicker-toggle>
+                    <mat-datepicker #InitialDatepicker disabled></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-auto">
+                <mat-form-field>
+                    <mat-label>Data de Conclusão do Projeto</mat-label>
+                    <input matInput formControlName="conclusionDate" [matDatepicker]="EndDatepicker" (click)="EndDatepicker.open()" readonly>
+                    <mat-error *ngIf="hasError('conclusionDate', 'invalidDate')">A data não pode ser anterior a data presente</mat-error>
+                    <mat-error *ngIf="hasError('conclusionDate', 'required')">Informe a data de término do projeto</mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="EndDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #EndDatepicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Descrição do projeto</mat-label>
+                    <textarea matInput formControlName="description" style="height: 100px;"></textarea>
+                    <mat-error *ngIf="hasError('description', 'required')">Informe a descrição do projeto</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="!projectForm.valid" *ngIf="editing">Salvar</button>
+</mat-dialog-content>
+<style>
+    input:disabled {
+      color: black;
+    }
+    
+    select:disabled {
+      color: black;
+    }
+    
+    textarea:disabled {
+      color: black;
+    }
+    
+    ::ng-deep.mat-select-disabled .mat-select-value {
+      color: black;
+    }
+</style>

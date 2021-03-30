@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Visão Geral</h1>
+            <hr>
+        </div>
+    </div>
+    <ng-container *ngIf="isProjectManagerOrUser">
+        <div class="row" align="center">
+            <div class="col">
+                <p class="h6">Tarefas com Conclusão Proxima</p>
+                <ng-container *ngIf="statisticsData?.tasksDueSoon">
+                    <mat-list role="list" *ngFor="let tasksDueSoon of statisticsData?.tasksDueSoon">
+                        <mat-list-item role="listitem" class="border rounded mb-1">{{tasksDueSoon.title}}</mat-list-item>
+                    </mat-list>
+                </ng-container>            
+            </div>
+            <div class="col">
+                <p class="h6">Últimas Tarefas Concluídas</p>
+                <ng-container *ngIf="statisticsData?.concludedTasks">
+                    <mat-list role="list" *ngFor="let concludedTask of statisticsData?.concludedTasks">
+                        <mat-list-item role="listitem" class="border rounded mb-1">{{concludedTask.title}}</mat-list-item>                                    
+                    </mat-list>
+                </ng-container>            
+            </div>        
+        </div>
+        <div class="row" align="center">
+            <div class="col">
+                <button mat-flat-button color="primary" class="mt-3" style="width: 50%;" routerLink="/dashboard/tasks">Ir para as Tarefas</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row" align="center">
+            <div class="col">
+                <p class="h6">Projeto em Andamento</p>
+                <mat-list role="list" *ngFor="let recentProjects of statisticsData?.recentProjects">
+                    <mat-list-item role="listitem" class="border rounded mb-1" style="width: 50%;">{{recentProjects.title}}</mat-list-item>                                    
+                </mat-list>
+            </div>        
+        </div>
+        <div class="row" align="center">
+            <div class="col">
+                <button mat-flat-button color="primary" class="mt-3" style="width: 50%;" routerLink="/dashboard/project">Ir para os Projetos</button>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="!isProjectManagerOrUser">
+        <app-statistics [isProjectDashboard]="false"></app-statistics>
+    </ng-container>
+</div>
