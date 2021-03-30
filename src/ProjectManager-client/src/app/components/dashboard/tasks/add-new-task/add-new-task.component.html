@@ -30,10 +30,7 @@
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="removeTask()" *ngIf="isMyTask() || isProjectManagerOrAdmin">
                     <fa-icon [icon]="['fas', 'trash']"></fa-icon> Remover
-                </button>
-                <button mat-menu-item *ngIf="isProjectManagerOrAdmin">
-                    <fa-icon [icon]="['far', 'clone']"></fa-icon> Adicionar a um projeto
-                </button>                
+                </button>                                
             </mat-menu>
         </div>
     </ng-container>
