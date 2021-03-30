@@ -5,7 +5,7 @@
 </div>
 
 <div class="row mb-3" *ngIf="!loadingTasks">
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md-3" style="border-right: 1px solid #9a9a9a24;">
         <h2 class="text-center">Planejadas</h2>
         <div cdkDropList class="task-list" id="planned-list" #plannedList="cdkDropList" [cdkDropListConnectedTo]="[onGoingList, onHoldList, finishedList]" [cdkDropListData]="plannedTasks" (cdkDropListDropped)="toggleTaskStatus($event)">
             <div *ngFor="let item of plannedTasks" (click)="openTaskDetails(item)" class="border rounded p-2 bg-white mb-1 task-box" 
@@ -30,7 +30,7 @@
         </div>
     </div>
     
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md-3" style="border-right: 1px solid #9a9a9a24;">
         <h2 class="text-center">Em Andamento</h2>
         <div cdkDropList class="task-list" id="onGoing-list" #onGoingList="cdkDropList" [cdkDropListConnectedTo]="[plannedList, onHoldList, finishedList]" [cdkDropListData]="onGoingTasks" (cdkDropListDropped)="toggleTaskStatus($event)">
             <div *ngFor="let item of onGoingTasks" (click)="openTaskDetails(item)" class="border rounded p-2 bg-white mb-1 task-box" cdkDrag [cdkDragData]="item">
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md-3" style="border-right: 1px solid #9a9a9a24;">
         <h2 class="text-center">Em Pausa</h2>
         <div cdkDropList class="task-list" id="onHold-list" #onHoldList="cdkDropList" [cdkDropListConnectedTo]="[plannedList, onGoingList, finishedList]" [cdkDropListData]="onHoldTasks" (cdkDropListDropped)="toggleTaskStatus($event)">
             <div *ngFor="let item of onHoldTasks" (click)="openTaskDetails(item)" class="border rounded p-2 bg-white mb-1 task-box" cdkDrag [cdkDragData]="item">
