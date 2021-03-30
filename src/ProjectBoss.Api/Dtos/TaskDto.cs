@@ -51,7 +51,7 @@ namespace ProjectBoss.Api.Dtos
         public PersonFullDto Attendant { get; set; }
         public PersonBasicDto Author { get; set; }
         public ProjectSimpleViewDto Project { get; set; }
-        public ICollection<CommentDto> Comments { get; set; }
+        public ICollection<CommentSimpleDto> Comments { get; set; }
     }
 
     public class CreateTaskDto

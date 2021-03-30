@@ -15,6 +15,15 @@ namespace ProjectBoss.Api.Dtos
         public TaskDto Task { get; set; }
     }
 
+    public class CommentSimpleDto
+    {
+        public Guid CommentId { get; set; }
+        public Guid PersonId { get; set; }
+        public Guid TaskId { get; set; }
+        public string Content { get; set; }
+        public DateTime CreatedDate { get; set; }        
+    }
+
     public class NewCommentDto
     {
         public Guid CommentId { get; set; } = Guid.NewGuid();

@@ -126,6 +126,8 @@ namespace ProjectBoss.Api.Configuration
             #endregion
 
             #region Comments Mappings
+            CreateMap<Comment, CommentSimpleDto>();
+
             CreateMap<Comment, CommentDto>();
             CreateMap<CommentDto, Comment>();
 
