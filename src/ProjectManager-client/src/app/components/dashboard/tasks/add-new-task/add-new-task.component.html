@@ -9,19 +9,21 @@
         <div>
             <button mat-icon-button (click)="toggleTaskStatus(2)" 
                                     [disabled]="editTask.statusId == 4"
-                                    [ngClass]="{'task-status-active': editTask.statusId == 2}">
+                                    [ngClass]="{'task-status-active': editTask.statusId == 2}"
+                                    matTooltip="Iniciar tarefa">
                 <fa-icon [icon]="['fas', 'play']"></fa-icon>
             </button>
         </div>
         <div>
             <button mat-icon-button (click)="toggleTaskStatus(3)" 
                                     [disabled]="editTask.statusId == 4 ||  editTask.statusId == 1"
-                                    [ngClass]="{'task-status-active': editTask.statusId == 3}">
+                                    [ngClass]="{'task-status-active': editTask.statusId == 3}"
+                                    matTooltip="Interromper tarefa">
                 <fa-icon [icon]="['fas', 'pause']"></fa-icon>
             </button>
         </div>        
         <div>
-            <button mat-icon-button (click)="concludeTask()" [ngClass]="{'task-complete': editTask.statusId == 4}">
+            <button matTooltip="Concluir tarefa" mat-icon-button (click)="concludeTask()" [ngClass]="{'task-complete': editTask.statusId == 4}">
                 <fa-icon [icon]="['fas', 'check']"></fa-icon>
             </button>
         </div>
