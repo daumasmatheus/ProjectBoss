@@ -8,7 +8,7 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
 import { faCheckCircle, faClone, faComment} from "@fortawesome/free-regular-svg-icons";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { faArrowLeft, faCheck, faEdit, faEllipsisV, faExternalLinkAlt, faFileDownload, faFileExcel, faFileImport, 
-         faFilePdf, faHome, faPause, faPlay, faPlus, faProjectDiagram, faSignOutAlt, faTasks, faTrash, faUserCircle, faUserPlus, faUsers, faUserSlash } from '@fortawesome/free-solid-svg-icons';
+         faFilePdf, faHome, faPause, faPlay, faPlus, faProjectDiagram, faQuestion, faQuestionCircle, faSignOutAlt, faTasks, faTrash, faUserCircle, faUserPlus, faUsers, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 
 import { DashboardRoutingModule } from './dashboard.route';
 import { DashboardComponent } from './dashboard.app.component';
@@ -113,6 +113,6 @@ export class DashboardModule {
         library.addIcons(faTasks, faProjectDiagram, faSignOutAlt, faUserCircle, faPlus, faFileImport, faFilePdf, 
                          faFilePdf, faFileExcel, faFileExcel, faHome, faEllipsisV, faCheck, faCheckCircle, faExternalLinkAlt, 
                          faEdit, faEdit, faPlay, faPause, faTrash, faClone, faFileDownload, faArrowLeft, faEdit, 
-                         faUserSlash, faUserPlus, faComment, faUsers, faPlus);        
+                         faUserSlash, faUserPlus, faComment, faUsers, faPlus, faQuestion);        
     }    
 }

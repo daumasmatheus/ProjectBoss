@@ -4,6 +4,16 @@
     </div>
 </div>
 
+<button matTooltip="Clique, arraste e solte na arraia para mudar o status da tarefa" 
+        matTooltipClass="custom-tooltip"
+        mat-icon-button 
+        (mouseenter)="$event.stopImmediatePropagation()"
+        (mouseleave)="$event.stopImmediatePropagation()"
+        #toolTip="matTooltip"
+        (click)="toolTip.toggle()"
+        color="accent">
+    <fa-icon [icon]="['fas', 'question']"></fa-icon>
+</button>
 <div class="row mb-3" *ngIf="!loadingTasks">
     <div class="col-6 col-md-3" style="border-right: 1px solid #9a9a9a24;">
         <h2 class="text-center">Planejadas</h2>
@@ -138,5 +148,9 @@
 
 .task-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 15px !important;
 }
 </style>
