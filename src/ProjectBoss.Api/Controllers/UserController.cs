@@ -155,5 +155,24 @@ namespace ProjectBoss.Api.Controllers
                 return HandleException(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Retorna as Roles do sistema
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetRoles")]
+        [MutiplePoliciesAuthorize("RequireAdministrator", true)]
+        public async Task<IActionResult> GetRoles()
+        {
+            try
+            {
+                var result = await userService.GetRoles();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex.Message);
+            }
+        }
     }
 }
