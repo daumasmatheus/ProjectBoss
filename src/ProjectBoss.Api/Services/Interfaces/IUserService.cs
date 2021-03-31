@@ -11,6 +11,7 @@ namespace ProjectBoss.Api.Services.Interfaces
         Task<UserViewDto> GetUserById(string userId);
         Task<bool> EditUser(UserViewDto userData);
         Task<bool> ResetUserPassword(string userId);
+        Task<List<RoleDto>> GetRoles();
         Task<byte[]> DownloadUsersXlsl();
         Task<byte[]> DownloadUsersPdf();
     }

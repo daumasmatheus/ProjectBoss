@@ -40,13 +40,14 @@ namespace ProjectBoss.Api.Services
 
         public async Task<bool> EditUser(UserViewDto userData)
         {
+            bool updatedRole = false;
             if (userData?.Role != null)
-                await authenticationService.EditRole(userData.Id, userData.Role.Name);
+                updatedRole = await authenticationService.EditRole(userData.Id, userData.Role.Id);
 
             var userEntity = await userRepository.GetSingleByCondition(x => x.Id == userData.Id);
             var updated = mapper.Map(mapper.Map<UserDataDto>(userData), userEntity);
 
-            await userRepository.Update(updated);
+            await userRepository.Update(userEntity, updated);
             var updatedUser = await userRepository.SaveChanges();
 
             bool updatedPerson;
@@ -58,7 +59,7 @@ namespace ProjectBoss.Api.Services
             else
                 updatedPerson = true;
 
-            return (updatedUser && updatedPerson);
+            return (updatedUser || updatedRole) && updatedPerson;
         }
 
         public async Task<UserViewDto> GetUserById(string userId)
@@ -244,6 +245,14 @@ namespace ProjectBoss.Api.Services
             stream.Seek(0, SeekOrigin.Begin);
 
             return stream.ToArray();
+        }
+
+        public async Task<List<RoleDto>> GetRoles()
+        {
+            var eRoles = await authenticationService.GetRoles();
+            eRoles.RemoveAt(eRoles.FindIndex(x => x.Name.ToUpper() == "ADMINISTRATOR"));
+
+            return eRoles.Select(s => mapper.Map<RoleDto>(s)).ToList();
         }
     }
 }

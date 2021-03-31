@@ -133,6 +133,10 @@ namespace ProjectBoss.Api.Configuration
 
             CreateMap<NewCommentDto, Comment>();
             #endregion
+
+            #region Role
+            CreateMap<IdentityRole, RoleDto>();
+            #endregion
         }
     }
 }
