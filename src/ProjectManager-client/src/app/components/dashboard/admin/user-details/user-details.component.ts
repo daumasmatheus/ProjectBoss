@@ -13,11 +13,7 @@ import { UsersServices } from '../../services/users.services';
 })
 export class UserDetailsComponent implements OnInit {
   selectedUser: UserDataModel;
-  userRoles: UserRole[] = [
-    { name: 'Administrator', id: 'ED110E5C-F7B3-40FA-B3D3-736762213CB2' },
-    { name: 'ProjectManager', id: '9c764096-5e10-4072-869c-e319f6c3dff0' },
-    { name: 'CommonUser', id: '58d477dd-f134-40ac-9fe9-d7cd72775d0c' }
-  ];
+  userRoles: UserRole[] = [];
 
   userDataForm: FormGroup;
   personDataForm: FormGroup;
@@ -28,7 +24,9 @@ export class UserDetailsComponent implements OnInit {
               private dialog: MatDialog,
               private usersService: UsersServices,
               private snackHelper: SnackBarHelper,
-              @Inject(MAT_DIALOG_DATA) public data: any) { }
+              @Inject(MAT_DIALOG_DATA) public data: any) { 
+    this.getRoles();
+  }
 
   ngOnInit(): void {
     this.userDataForm = new FormGroup({
@@ -87,5 +85,13 @@ export class UserDetailsComponent implements OnInit {
         this.snackHelper.showSnackbar('Falha ao resetar a senha do usuário', MessageType.ErrorMessage, 3000);
       }
     )
+  }
+
+  getRoles(){
+    this.usersService.getRoles().subscribe(
+      (resp: UserRole[]) => {
+        this.userRoles = resp;
+      }, error => console.error(error)
+    );
   }
 }
