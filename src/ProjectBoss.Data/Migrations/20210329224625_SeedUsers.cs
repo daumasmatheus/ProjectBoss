@@ -8,9 +8,9 @@ namespace ProjectBoss.Data.Migrations
         {
             string sql = @"USE [TaskBoss]
                            GO
-                           INSERT [dbo].[Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'534027b4-98e9-41a2-9588-1d01e5d5b50f', N'CommonUser', N'CommonUser', N'4e136ba6-25d3-4e7f-b1ec-6c58783096c5')
+                           INSERT [dbo].[Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'534027b4-98e9-41a2-9588-1d01e5d5b50f', N'CommonUser', N'User', N'4e136ba6-25d3-4e7f-b1ec-6c58783096c5')
                            GO
-                           INSERT [dbo].[Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'daddbd44-6d79-4d5a-8b99-5cdcee017a34', N'ProjectManager', N'ProjectManager', N'91ab12a2-7694-4e1b-a6b1-101b614ba10f')
+                           INSERT [dbo].[Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'daddbd44-6d79-4d5a-8b99-5cdcee017a34', N'ProjectManager', N'Project Manager', N'91ab12a2-7694-4e1b-a6b1-101b614ba10f')
                            GO
                            INSERT [dbo].[Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'ED110E5C-F7B3-40FA-B3D3-736762213CB2', N'Administrator', N'Administrator', N'dc71b025-31da-4144-afd8-3fbaf48ee7a6')
                            GO
