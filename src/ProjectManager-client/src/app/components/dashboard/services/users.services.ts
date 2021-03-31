@@ -60,4 +60,12 @@ export class UsersServices extends BaseService {
                         catchError(this.ServiceError)
                     );
     }
+
+    getRoles(): Observable<any> {
+        return this.httpClient
+                    .get(environment.apiBaseUrl + `api/User/GetRoles`, this.GetJsonAuthHeader())
+                    .pipe(
+                        catchError(this.ServiceError)
+                    );
+    }
 }
