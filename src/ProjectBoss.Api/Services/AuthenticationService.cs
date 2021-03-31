@@ -96,44 +96,46 @@ namespace ProjectBoss.Api.Services
             return await userManager.FindByEmailAsync(email);
         }
 
-        public async Task<bool> AsignRole(ApplicationUser user, string role)
+        public async Task<bool> AsignRole(ApplicationUser user, string role = "", string roleId = "")
         {
-            var asignableRole = roleManager.Roles.Where(r => r.Name.ToUpper() == role.ToUpper()).FirstOrDefault();
-
-            if (asignableRole != null)
-            {
-                var result = await userManager.AddToRoleAsync(user, asignableRole.Name);
-
-                return result.Succeeded ? true : false;
-            }
-            return false;
-        }
-
-        public async Task<bool> AsignRole(string userId, string role)
-        {
-            var asignableRole = roleManager.Roles.Where(r => r.Name.ToUpper() == role.ToUpper()).FirstOrDefault();
-
-            if (asignableRole != null)
-            {
-                var user = await userManager.FindByIdAsync(userId);
-                var result = await userManager.AddToRoleAsync(user, asignableRole.Name);
-
-                return result.Succeeded ? true : false;
-            }
-            return false;
-        }
-
-        public async Task<bool> EditRole(string userId, string role)
-        {
-            var user = await userManager.FindByIdAsync(userId);
-            var userRoles = await userManager.GetRolesAsync(user);
-
-            var resultRemoveRoles = await userManager.RemoveFromRolesAsync(user, userRoles);
-
-            if (!resultRemoveRoles.Succeeded)
+            if (string.IsNullOrEmpty(role) && string.IsNullOrEmpty(roleId))
                 return false;
 
-            return await AsignRole(userId, role);
+            IdentityRole asignableRole;
+            if (!string.IsNullOrEmpty(role))
+                asignableRole = roleManager.Roles.Where(x => x.Name.ToUpper() == role.ToUpper()).FirstOrDefault();
+            else
+                asignableRole = roleManager.Roles.Where(x => x.Id == roleId).FirstOrDefault();            
+
+            if (asignableRole == null)
+                return false;
+
+            return userManager.AddToRoleAsync(user, asignableRole.Name).Result.Succeeded;            
+        }        
+
+        public async Task<bool> EditRole(string userId, string roleId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            
+            var result = await RemoveCurrentRole(user);
+
+            if (result == false)
+                return false;
+
+            return await AsignRole(user, roleId: roleId);
+        }
+
+        private async Task<bool> RemoveCurrentRole(ApplicationUser user)
+        {
+            var userRoles = await userManager.GetRolesAsync(user);
+
+            var result = await userManager.RemoveFromRolesAsync(user, userRoles);
+            return result.Succeeded;
+        }
+
+        public async Task<List<IdentityRole>> GetRoles()
+        {
+            return roleManager.Roles.ToList();
         }
 
         public async Task<bool> CheckUserRole(string userId, string role)
