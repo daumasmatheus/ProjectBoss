@@ -41,16 +41,15 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   getUsers(){
     this.usersService.getUsers().subscribe(
       (response: UserDataModel[]) => { 
-        console.log(response);
         this.users = response;
 
         this.usersDataSource = new MatTableDataSource(response);
-        // this.usersDataSource.sortingDataAccessor = (item, property) => {
-        //   switch (property) {
-        //     case 'role.name': return item.role.name
-        //     default: return item[property];
-        //   }
-        // };
+        this.usersDataSource.sortingDataAccessor = (item, property) => {
+          switch (property) {
+            case 'role.name': return item.role.name
+            default: return item[property];
+          }
+        };
         this.usersDataSource.paginator = this.paginator;
         this.usersDataSource.sort = this.sort;
       }, error => {
