@@ -25,7 +25,7 @@
               
                   <ng-container matColumnDef="role.name">
                     <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Modo de Permissionamento </mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let row"> {{row.role.name}} </mat-cell>
+                    <mat-cell mat-cell *matCellDef="let row"> {{row.role?.name}} </mat-cell>
                   </ng-container>
     
                   <ng-container matColumnDef="provider">
