@@ -9,8 +9,8 @@ namespace ProjectBoss.Api.Configuration
         {
             services.AddAuthorization(opts =>
             {
-                opts.AddPolicy("RequireUser", pol => pol.RequireRole("CommonUser"));
-                opts.AddPolicy("RequireProjectManager", pol => pol.RequireRole("ProjectManager"));
+                opts.AddPolicy("RequireUser", pol => pol.RequireRole("User"));
+                opts.AddPolicy("RequireProjectManager", pol => pol.RequireRole("Project Manager"));
                 opts.AddPolicy("RequireAdministrator", pol => pol.RequireRole("Administrator"));
             });
 
