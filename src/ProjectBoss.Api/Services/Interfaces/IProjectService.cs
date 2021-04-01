@@ -14,5 +14,6 @@ namespace ProjectBoss.Api.Services.Interfaces
         Task<byte[]> ExportProjectAsXlsl(Guid projectId);
         Task<byte[]> ExportProjectAsPdf(Guid projectId);
         Task<IEnumerable<ProjectDataForDropdownDto>> GetProjectDataForDropdown();
+        Task<bool> ToggleProjectStatus(Guid projectId);
     }
 }

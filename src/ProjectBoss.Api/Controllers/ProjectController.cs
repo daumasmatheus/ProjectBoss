@@ -174,5 +174,20 @@ namespace ProjectBoss.Api.Controllers
                 return HandleException(ex.Message);
             }
         }
+
+        [HttpPost("ToggleProjectStatus")]
+        [MutiplePoliciesAuthorize("RequireProjectManager;RequireAdministrator")]
+        public async Task<IActionResult> ToggleProjectStatus([FromBody]Guid projectId)
+        {
+            try
+            {
+                bool result = await projectService.ToggleProjectStatus(projectId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex.Message);
+            }
+        }
     }
 }

@@ -444,5 +444,22 @@ namespace ProjectBoss.Api.Services
 
             return result = data.Select(s => new ProjectDataForDropdownDto { ProjectId = s.ProjectId, ProjectName = s.Title });
         }
+
+        public async Task<bool> ToggleProjectStatus(Guid projectId)
+        {
+            var project = await projectRepository.GetSingleByCondition(x => x.ProjectId == projectId);
+
+            if (project == null)
+                return false;
+
+            if (project.ConcludedDate.HasValue)
+                project.ConcludedDate = null;
+            else
+                project.ConcludedDate = DateTime.Now;
+
+            await projectRepository.Update(project);
+
+            return await projectRepository.SaveChanges();
+        }
     }
 }
