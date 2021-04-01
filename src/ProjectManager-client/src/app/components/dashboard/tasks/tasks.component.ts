@@ -41,8 +41,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   constructor(private snackHelper: SnackBarHelper, private dialog: MatDialog, private taskService: TaskServices,
               private personServices: PersonServices) {
-    this.isCommonUser = this.checkRole("CommonUser");
-    this.isProjecManager = this.checkRole("ProjectManager");
+    this.isCommonUser = this.checkRole("User");
+    this.isProjecManager = this.checkRole("Project Manager");
     this.isAdmin = this.checkRole("Administrator");
 
     this.getTasks();

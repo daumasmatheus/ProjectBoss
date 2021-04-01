@@ -16,7 +16,7 @@ export class GetProjectIdsByPersonResolver implements Resolve<PersonInProjectSim
     resolve(route: ActivatedRouteSnapshot): Observable<PersonInProjectSimpleModel[]> | Promise<PersonInProjectSimpleModel[]> | PersonInProjectSimpleModel[] {
         let personId = this.localStorageUtils.getUser().personId;
 
-        let isProjectManagerOrAdmin = this.localStorageUtils.checkUserClaim("ProjectManager") || this.localStorageUtils.checkUserClaim("Administrator");
+        let isProjectManagerOrAdmin = this.localStorageUtils.checkUserClaim("Project Manager") || this.localStorageUtils.checkUserClaim("Administrator");
 
         if (isProjectManagerOrAdmin) {
             return this.projectServices.getAllProjectsDataForDropdown().toPromise().then(

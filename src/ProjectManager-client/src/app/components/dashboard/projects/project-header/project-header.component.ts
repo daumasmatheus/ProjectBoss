@@ -18,7 +18,7 @@ export class ProjectHeaderComponent implements OnInit {
   isCommonUser: boolean = false; 
 
   constructor(private activatedRoute: ActivatedRoute) {
-    this.isCommonUser = this.localStorageUtils.checkUserClaim("CommonUser");
+    this.isCommonUser = this.localStorageUtils.checkUserClaim("User");
     this.getProjectsFromRouteResolver();
   }  
 

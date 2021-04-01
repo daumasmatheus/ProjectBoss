@@ -47,7 +47,7 @@ export class AddTaskDialogComponent implements OnInit {
               private dialog: MatDialog,
               private commentServices: CommentServices,
               private snackHelper: SnackBarHelper) { 
-    this.isProjectManagerOrAdmin = this.localStorageUtils.checkUserClaim("Administrator") || this.localStorageUtils.checkUserClaim("ProjectManager")              
+    this.isProjectManagerOrAdmin = this.localStorageUtils.checkUserClaim("Administrator") || this.localStorageUtils.checkUserClaim("Project Manager")              
   }  
 
   ngOnInit(): void {

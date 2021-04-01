@@ -8,7 +8,7 @@ export class NewProjectGuard extends BaseGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         console.log(this.localStorageUtils.getUser())
-        if (this.localStorageUtils.checkUserClaim("Administrator") || this.localStorageUtils.checkUserClaim("ProjectManager")){
+        if (this.localStorageUtils.checkUserClaim("Administrator") || this.localStorageUtils.checkUserClaim("Project Manager")){
             return true;
         } else {
             this.navigateToDashboard();

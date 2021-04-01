@@ -71,7 +71,7 @@ export class StatisticsComponent implements OnInit {
   isProjectManagerOrUser: boolean = false;  
 
   constructor(private statisticsServices: StatisticsServices) {
-    this.isProjectManagerOrUser = this.localStorageUtils.checkUserClaim("CommonUser") || this.localStorageUtils.checkUserClaim("ProjectManager");
+    this.isProjectManagerOrUser = this.localStorageUtils.checkUserClaim("User") || this.localStorageUtils.checkUserClaim("Project Manager");
   }
 
   ngOnInit(): void {

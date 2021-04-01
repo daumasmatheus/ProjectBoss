@@ -66,7 +66,7 @@ export class BoardComponent implements OnInit {
 
   toggleTaskStatus(event: CdkDragDrop<TaskModel[]>) {
     if (event.item.data.authorId == this.localStorageUtils.getUser().id || 
-        (this.localStorageUtils.checkUserClaim("Administrator") || this.localStorageUtils.checkUserClaim("ProjectManager"))){
+        (this.localStorageUtils.checkUserClaim("Administrator") || this.localStorageUtils.checkUserClaim("Project Manager"))){
       if (event.previousContainer === event.container) {
         moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       } else {      
