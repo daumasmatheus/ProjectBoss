@@ -21,12 +21,12 @@
             <button mat-icon-button [matMenuTriggerFor]="menu" class="pull-right"><mat-icon>more_horiz</mat-icon></button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="openProjectDetails()"><fa-icon [icon]="['fas', 'external-link-alt']"></fa-icon> Detalhes do Projeto</button>
-                <button mat-menu-item (click)="addNewTask()"><fa-icon [icon]="['fas', 'plus']"></fa-icon> Incluir Tarefa</button>
-                <button mat-menu-item (click)="exportProject()"><fa-icon [icon]="['fas', 'file-download']"></fa-icon> Exportar</button>                
-                <ng-container *ngIf="project.concludedDate">
+                <button *ngIf="isProjectManagerOrAdmin" mat-menu-item (click)="addNewTask()"><fa-icon [icon]="['fas', 'plus']"></fa-icon> Incluir Tarefa</button>
+                <button *ngIf="isProjectManagerOrAdmin" mat-menu-item (click)="exportProject()"><fa-icon [icon]="['fas', 'file-download']"></fa-icon> Exportar</button>                
+                <ng-container *ngIf="project.concludedDate && isProjectManagerOrAdmin">
                     <button mat-menu-item (click)="toggleProjectStatus()"><fa-icon [icon]="['fas', 'undo']"></fa-icon> Reabrir Projeto</button>
                 </ng-container>
-                <ng-container *ngIf="!project.concludedDate">
+                <ng-container *ngIf="!project.concludedDate && isProjectManagerOrAdmin">
                     <button mat-menu-item (click)="toggleProjectStatus()"><fa-icon [icon]="['fas', 'check']"></fa-icon> Concluir Projeto</button>
                 </ng-container>
             </mat-menu>
@@ -38,7 +38,7 @@
                 <mat-tab label="Board" [disabled]="!project">                      
                     <app-board></app-board>                  
                 </mat-tab>
-                <mat-tab label="Time" [disabled]="!project">
+                <mat-tab label="Time" [disabled]="!project" *ngIf="isProjectManagerOrAdmin">
                     <app-attendants (attendantRemovedEvt)="attendantRemoved($event)" (attendantsIncludedEvt)="attendantIncluded($event)" *matTabContent [projectId]="this.projectId" [attendants]="attendants"></app-attendants>
                 </mat-tab>
                 <mat-tab label="Estatísticas" [disabled]="!project">

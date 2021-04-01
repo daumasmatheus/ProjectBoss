@@ -38,6 +38,8 @@ export class ProjectComponent implements OnInit {
   tasks: TaskModel[];
   attendants: PersonModel[];
 
+  isProjectManagerOrAdmin: boolean = this.localStorageUtils.checkUserClaim("Project Manager") || this.localStorageUtils.checkUserClaim("Administrator");
+
   constructor(private projectServices: ProjectServices,
               private taskServices: TaskServices,
               private personInProjectServices: PersonInProjectServices,
