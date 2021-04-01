@@ -174,7 +174,12 @@ namespace ProjectBoss.Api.Controllers
                 return HandleException(ex.Message);
             }
         }
-
+        
+        /// <summary>
+        /// Efetua a alteração do status do projeto
+        /// </summary>
+        /// <param name="projectId">Id do projeto</param>
+        /// <returns></returns>
         [HttpPost("ToggleProjectStatus")]
         [MutiplePoliciesAuthorize("RequireProjectManager;RequireAdministrator")]
         public async Task<IActionResult> ToggleProjectStatus([FromBody]Guid projectId)
