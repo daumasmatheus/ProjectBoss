@@ -11,7 +11,6 @@ namespace ProjectBoss.Api.Controllers
 {
     [Route("api/Person")]
     [ApiController]
-    [AllowAnonymous]
     public class PersonController : BaseController
     {
         private readonly IPersonService personService;
