@@ -61,4 +61,12 @@ export class ProjectServices extends BaseService {
                         catchError(this.ServiceError)
                     );
     }
+
+    toggleProjectStatus(projectId: string){
+        return this.httpClient
+                    .post(environment.apiBaseUrl + `api/Project/ToggleProjectStatus`, projectId,  this.GetJsonAuthHeader())
+                    .pipe(
+                        catchError(this.ServiceError)
+                    );
+    }
 }

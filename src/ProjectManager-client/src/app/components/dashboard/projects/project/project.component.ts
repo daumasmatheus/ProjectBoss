@@ -44,7 +44,19 @@ export class ProjectComponent implements OnInit {
               private dialog: MatDialog,
               private snackHelper: SnackBarHelper) { }  
 
-  ngOnInit(): void {} 
+  ngOnInit(): void {}   
+
+  toggleProjectStatus(){
+    this.projectServices.toggleProjectStatus(JSON.stringify(this.projectId)).subscribe(
+      (resp: boolean) => {
+        this.snackHelper.showSnackbar("Status do projeto alterado com sucesso", MessageType.OkMessage, 3000);
+        this.getProjectDataById(this.projectId);
+      }, error => {
+        this.snackHelper.showSnackbar("Falha ao alterar o status do projeto", MessageType.ErrorMessage, 3000);
+        console.error(error);
+      }
+    )
+  }  
 
   getProjectDataById($event){
     if ($event == '0')
@@ -103,7 +115,7 @@ export class ProjectComponent implements OnInit {
 
   getProjectData() {
     this.projectServices.getProjectDataById(this.projectId).subscribe(
-      (resp: ProjectDataModel) => {
+      (resp: ProjectDataModel) => {        
         this.project = resp;        
       }
     );

@@ -30,7 +30,7 @@
             </div>
             <div class="col-sm-auto">
                 <mat-form-field>
-                    <mat-label>Data de Conclusão do Projeto</mat-label>
+                    <mat-label>Previsão de Conclusão do Projeto</mat-label>
                     <input matInput formControlName="conclusionDate" [matDatepicker]="EndDatepicker" (click)="EndDatepicker.open()" readonly>
                     <mat-error *ngIf="hasError('conclusionDate', 'invalidDate')">A data não pode ser anterior a data presente</mat-error>
                     <mat-error *ngIf="hasError('conclusionDate', 'required')">Informe a data de término do projeto</mat-error>
