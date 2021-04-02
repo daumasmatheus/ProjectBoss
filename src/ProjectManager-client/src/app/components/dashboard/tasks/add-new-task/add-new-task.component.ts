@@ -35,6 +35,7 @@ export class AddNewTaskComponent implements OnInit {
   selectedAttendant: PersonModel = new PersonModel;
 
   isProjectManagerOrAdmin: boolean = false;
+  isMyTask: boolean = false;
 
   editTask: TaskModel;
   editingTask: boolean = false;  
@@ -74,6 +75,8 @@ export class AddNewTaskComponent implements OnInit {
 
         this.newTaskForm.patchValue(this.data.editTask);
         this.newTaskForm.get('attendant').setValue(`${this.data.editTask.attendant.personCode} - ${this.data.editTask.attendant.fullName}`);
+
+        this.isMyTask = this.editTask.author.userId == this.localStorageUtils.getUser().id;
 
         this.getComments();
       }
@@ -209,11 +212,7 @@ export class AddNewTaskComponent implements OnInit {
         } 
       }
     });
-  }
-
-  isMyTask(){
-    return this.editTask.author.userId == this.localStorageUtils.getUser().id;
-  }
+  }  
 
   submitComment(){
     this.isSubmiting = true;

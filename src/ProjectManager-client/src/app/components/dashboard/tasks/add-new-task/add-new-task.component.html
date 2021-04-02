@@ -28,12 +28,9 @@
             </button>
         </div>
         <div>
-            <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="removeTask()" *ngIf="isMyTask() || isProjectManagerOrAdmin">
-                    <fa-icon [icon]="['fas', 'trash']"></fa-icon> Remover
-                </button>                                
-            </mat-menu>
+            <button matTooltip="Excluir tarefa" mat-icon-button color="warn" (click)="removeTask()" *ngIf="isMyTask || isProjectManagerOrAdmin">
+                <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+            </button>
         </div>
     </ng-container>
 </div>
