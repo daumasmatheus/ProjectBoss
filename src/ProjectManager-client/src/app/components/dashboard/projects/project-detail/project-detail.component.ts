@@ -18,6 +18,8 @@ export class ProjectDetailComponent implements OnInit {
 
   editing: boolean = false;
   
+  isProjectManagerOrAdmin: boolean = this.localStorageUtils.checkUserClaim("Project Manager") || this.localStorageUtils.checkUserClaim("Administrator");
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<ProjectDetailComponent>) { }
 
