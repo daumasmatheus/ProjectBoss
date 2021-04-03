@@ -86,7 +86,7 @@ export class LogInComponent implements OnInit {
 
   proccessError = (fail: any) => {
     fail.error.errors.Messages.forEach(errorMessage => {
-      this.snackHelper.showSnackbar(errorMessage, MessageType.ErrorMessage);
+      this.snackHelper.showSnackbar(errorMessage, MessageType.ErrorMessage, 3000);
     });    
   }
 }
