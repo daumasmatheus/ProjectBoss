@@ -35,6 +35,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   personalDataForm: FormGroup;
   changePwdForm: FormGroup;
 
+  isLocalAccount: boolean = this.localStorageUtils.checkUserClaim("LOCAL");
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<ProfileComponent>,
               private personService: PersonServices,
