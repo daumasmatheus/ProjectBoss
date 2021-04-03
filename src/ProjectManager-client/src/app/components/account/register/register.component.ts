@@ -82,6 +82,7 @@ export class RegisterComponent implements OnInit {
   proccessError = (fail: any) => {
     fail.error.errors.Messages.forEach(errorMessage => {
       this.snackHelper.showSnackbar(errorMessage, MessageType.ErrorMessage);
-    });    
+    });
+    this.registerForm.enable();    
   }
 }
