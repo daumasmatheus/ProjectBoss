@@ -2,11 +2,13 @@
     <mat-form-field>
         <input matInput formControlName="email" placeholder="Email">
         <mat-error *ngIf="hasError('email', 'required')">Informe o email</mat-error>
+        <mat-error *ngIf="hasError('email', 'pattern')">Informe um endereço de email com formato válido</mat-error>
     </mat-form-field>
 
     <mat-form-field>
         <input matInput formControlName="password" placeholder="Senha" type="password">
         <mat-error *ngIf="hasError('password', 'required')">Informe a senha</mat-error>
+        <mat-error *ngIf="hasError('password', 'minlength')">A senha deve ter no minimo 8 caracteres</mat-error>
     </mat-form-field>
     <button mat-raised-button [disabled]="!loginForm.valid">Log In</button>
     
