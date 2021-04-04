@@ -4,7 +4,8 @@
     </div>
 </div>
 
-<button matTooltip="Clique, arraste e solte nos espaços para mudar o status da tarefa" 
+<button *ngIf="tasks"
+        matTooltip="Clique, arraste e solte nos espaços para mudar o status da tarefa" 
         matTooltipClass="custom-tooltip"
         mat-icon-button 
         (mouseenter)="$event.stopImmediatePropagation()"
