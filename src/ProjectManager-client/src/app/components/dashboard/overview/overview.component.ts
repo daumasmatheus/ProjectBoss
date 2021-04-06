@@ -17,13 +17,13 @@ export class OverviewComponent implements OnInit {
 
   statisticsData: PersonOverviewModel;
 
-  constructor(private statisticsServices: StatisticsServices) { 
-    this.getPersonStatisticsData();
-
-    this.isProjectManagerOrUser = this.localStorageUtils.checkUserClaim("User") || this.localStorageUtils.checkUserClaim("Project Manager");
+  constructor(private statisticsServices: StatisticsServices) {
+    this.isProjectManagerOrUser = this.localStorageUtils.checkUserClaim("User") || 
+                                  this.localStorageUtils.checkUserClaim("Project Manager");
   }
 
   ngOnInit(): void {
+    this.getPersonStatisticsData();
   }
 
   getPersonStatisticsData(){
