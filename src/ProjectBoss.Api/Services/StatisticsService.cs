@@ -35,7 +35,8 @@ namespace ProjectBoss.Api.Services
         {
             PersonOverviewStatsDto result = new PersonOverviewStatsDto();
 
-            var tasks = await taskRepository.GetManyByCondition(x => x.AuthorId == personId);
+            var tasks = await taskRepository.GetManyByCondition(x => x.AuthorId == personId ||
+                                                                     x.AttendantId == personId);
             var project = await personInProjectRepository.GetOpenPersonProjectsWithChildEntities(personId);
 
             if ((tasks == null || !tasks.Any()) && (project == null || !project.Any()))
