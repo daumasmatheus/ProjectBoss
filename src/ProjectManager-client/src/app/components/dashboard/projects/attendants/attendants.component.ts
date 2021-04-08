@@ -2,6 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChil
 import { MatDialog } from '@angular/material/dialog';
 import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { MessageType } from 'src/app/helpers/message-type.enum';
+import { PopConfirmationComponent } from 'src/app/helpers/pop-confirmation/pop-confirmation.component';
 import { SnackBarHelper } from 'src/app/helpers/snack-bar.helper';
 import { TableComponentComponent } from '../../base-components/table-component/table-component.component';
 import { PersonModel } from '../../models/person.1.model';
@@ -41,17 +42,29 @@ export class AttendantsComponent implements OnInit, AfterViewInit {
       attendantIds: this.tableComponent.selection.selected.map(el => { return el.personId })
     }
 
-    this.personInProjectServices.removeProjectAttendants(parameters).subscribe(
-      (resp: boolean) => {
-        if (resp) {          
-          this.attendantRemovedEvt.emit(true); 
-          this.snackHelper.showSnackbar("Participante removido com sucesso", MessageType.OkMessage, 3000);          
-        }
-      }, error => {
-        this.snackHelper.showSnackbar("Falha ao remover o participante", MessageType.ErrorMessage, 3000);
-        console.error(error);
+    let dialogRef = this.dialog.open(PopConfirmationComponent, {
+      hasBackdrop: true,
+      data: {
+        title: `Remover Participante(s)`,
+        message: 'Deseja remover o(s) participante(s)? A operação não poderá ser desfeita.'
       }
-    )
+    })
+
+    dialogRef.afterClosed().subscribe((resp: boolean) => {
+      if (resp) {
+        this.personInProjectServices.removeProjectAttendants(parameters).subscribe(
+          (resp: boolean) => {
+            if (resp) {          
+              this.attendantRemovedEvt.emit(true); 
+              this.snackHelper.showSnackbar("Participante removido com sucesso", MessageType.OkMessage, 3000);          
+            }
+          }, error => {
+            this.snackHelper.showSnackbar("Falha ao remover o participante", MessageType.ErrorMessage, 3000);
+            console.error(error);
+          }
+        );
+      }
+    });    
   }  
 
   addAttendant(){ 
