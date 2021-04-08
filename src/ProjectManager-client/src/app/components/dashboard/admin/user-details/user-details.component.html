@@ -40,7 +40,7 @@
                 </div>
             </div>
         </form>
-        <button mat-raised-button color="primary" (click)="resetUserPassword()" [disabled]="proccessPwdReset">Resetar Senha</button>
+        <button *ngIf="selectedUser.provider == 'LOCAL'" mat-raised-button color="primary" (click)="resetUserPassword()" [disabled]="proccessPwdReset">Resetar Senha</button>
     </div>
 
     <h3 class="m-0">Dados Pessoais</h3>
