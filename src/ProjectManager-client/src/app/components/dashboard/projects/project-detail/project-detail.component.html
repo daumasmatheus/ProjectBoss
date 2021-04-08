@@ -4,7 +4,7 @@
         <p>Criado por {{project.author.fullName}}</p>
     </div>
     <div align="right">
-        <button mat-icon-button [hidden]="!isProjectManagerOrAdmin" (click)="enableEdit()" [disabled]="editing"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>        
+        <button matTooltip="Editar" mat-icon-button [hidden]="!isProjectManagerOrAdmin" (click)="enableEdit()" [disabled]="editing"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>        
     </div>
 </div>
 <mat-dialog-content>
