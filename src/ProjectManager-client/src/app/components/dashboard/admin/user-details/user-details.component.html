@@ -15,13 +15,15 @@
                 <div class="col">
                     <mat-form-field> 
                         <mat-label>Usuário</mat-label>
-                        <input matInput formControlName="userName">                        
+                        <input matInput formControlName="userName" readonly>                                            
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field> 
                         <mat-label>Email</mat-label>
-                        <input matInput formControlName="email">                        
+                        <input matInput formControlName="email">     
+                        <mat-error *ngIf="userDataHasError('email', 'required')">Informe o Email</mat-error>
+                        <mat-error *ngIf="userDataHasError('email', 'required')">Informe o email em formato válido</mat-error>                   
                     </mat-form-field>
                 </div>
                 <div class="col">
@@ -56,13 +58,15 @@
                 <div class="col">
                     <mat-form-field> 
                         <mat-label>Nome</mat-label>
-                        <input matInput formControlName="firstName">                        
+                        <input matInput formControlName="firstName">   
+                        <mat-error *ngIf="personDataHasError('firstName', 'required')">Informe o Nome</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field> 
                         <mat-label>Sobrenome</mat-label>
-                        <input matInput formControlName="lastName">                        
+                        <input matInput formControlName="lastName">   
+                        <mat-error *ngIf="personDataHasError('lastName', 'required')">Informe o Sobrenome</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col">
@@ -90,5 +94,5 @@
 
 <mat-dialog-actions>
     <button mat-flat-button color="warn" (click)="closeDialog()">Fechar</button>
-    <button mat-flat-button color="primary" class="float-right" (click)="saveChanges()">Salvar</button>    
+    <button mat-flat-button [disabled]="!userDataForm.valid || !personDataForm.valid" color="primary" class="float-right" (click)="saveChanges()">Salvar</button>    
 </mat-dialog-actions>

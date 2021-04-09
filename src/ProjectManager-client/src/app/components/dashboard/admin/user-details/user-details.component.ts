@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MessageType } from 'src/app/helpers/message-type.enum';
 import { SnackBarHelper } from 'src/app/helpers/snack-bar.helper';
@@ -32,15 +32,15 @@ export class UserDetailsComponent implements OnInit {
     this.userDataForm = new FormGroup({
       createdDate: new FormControl(''),
       userName: new FormControl(''),
-      email: new FormControl(''),
+      email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       provider: new FormControl(''),
       role: new FormControl('')
     });
 
     this.personDataForm = new FormGroup({
       personCode: new FormControl(''),
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
       country: new FormControl(''),
       company: new FormControl(''),
       role: new FormControl('')
@@ -94,4 +94,12 @@ export class UserDetailsComponent implements OnInit {
       }, error => console.error(error)
     );
   }
+
+  userDataHasError = (controlName: string, errorName: string) => {
+    return this.userDataForm.controls[controlName].hasError(errorName);
+  }  
+
+  personDataHasError = (controlName: string, errorName: string) => {
+    return this.personDataForm.controls[controlName].hasError(errorName);
+  }  
 }
