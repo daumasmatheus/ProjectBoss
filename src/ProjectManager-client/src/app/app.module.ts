@@ -18,6 +18,7 @@ import { PopConfirmationComponent } from './helpers/pop-confirmation/pop-confirm
 import { DownloadFileDialogComponent } from './helpers/download-file-dialog/download-file-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
+import { environment } from 'src/environments/environment';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: '#fff',
@@ -58,7 +59,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('1084083418579-2bhhi5vq01qvn65vmgu6gt123vmfl9jv.apps.googleusercontent.com')
+            provider: new GoogleLoginProvider(environment.googleLoginProvider)
           }
         ]
       } as SocialAuthServiceConfig      

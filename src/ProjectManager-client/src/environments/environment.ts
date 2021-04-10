@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:58000/',
   linkedin: 'https://www.linkedin.com/in/matheus-daumas-800003109/',
-  github: 'https://github.com/daumasmatheus'  
+  github: 'https://github.com/daumasmatheus',
+  googleLoginProvider: '1084083418579-2bhhi5vq01qvn65vmgu6gt123vmfl9jv.apps.googleusercontent.com'  
 };
 
 /*
