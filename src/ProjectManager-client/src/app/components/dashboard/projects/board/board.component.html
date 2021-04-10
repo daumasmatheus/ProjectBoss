@@ -17,7 +17,7 @@
 </button>
 <div class="row mb-3" *ngIf="!loadingTasks">
     <div class="col-6 col-md-3" style="border-right: 1px solid #9a9a9a24;">
-        <h2 class="text-center">Planejadas</h2>
+        <h2 class="text-center">Planejada</h2>
         <div cdkDropList class="task-list" id="planned-list" #plannedList="cdkDropList" [cdkDropListConnectedTo]="[onGoingList, onHoldList, finishedList]" [cdkDropListData]="plannedTasks" (cdkDropListDropped)="toggleTaskStatus($event)">
             <div *ngFor="let item of plannedTasks" (click)="openTaskDetails(item)" class="border rounded p-2 bg-white mb-1 task-box" 
                  cdkDrag [cdkDragData]="item" matRipple [matRippleColor]="'rgba(204,204,204,0.1)'">
@@ -90,7 +90,7 @@
     </div>
     
     <div class="col-6 col-md-3">
-        <h2 class="text-center">Concluídas</h2>
+        <h2 class="text-center">Concluída</h2>
         <div cdkDropList class="task-list" id="finished-list" #finishedList="cdkDropList" [cdkDropListConnectedTo]="[onGoingList, onHoldList, plannedList]" [cdkDropListData]="finishedTasks" (cdkDropListDropped)="toggleTaskStatus($event)">
             <div *ngFor="let item of finishedTasks" (click)="openTaskDetails(item)" class="border rounded p-2 bg-white mb-1 task-box" cdkDrag [cdkDragData]="item">
                 <div class="row mb-2">
